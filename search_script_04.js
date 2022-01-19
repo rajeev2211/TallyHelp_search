@@ -5,6 +5,7 @@ const searchContainer = document.createElement("DIV");
     searchContainer.id = "searchContainer";
     searchContainer.className = "searchContainer";
     searchContainer.style.width = "969px";
+    searchContainer.style.zIndex = "1";
 const searchInput = document.createElement("INPUT");
     searchInput.id = "searchInput";
     searchInput.type = "text";
@@ -12,7 +13,8 @@ const searchInput = document.createElement("INPUT");
 const heightAdjust = document.createElement("div");
     heightAdjust.style.height = "0px";
 
-const tableTitle = firstTable.previousElementSibling;
+// const tableTitle = firstTable.previousElementSibling;
+const tableTitle = content.firstElementChild
 
 searchContainer.appendChild(searchInput);
 content.insertBefore(heightAdjust, tableTitle)
@@ -165,11 +167,19 @@ function searchShortcut(e) {
         }
         // if no results are found in the entire table then hide the table
         if (!matchFoundInTable) {
-            tParent.style.display = "none";
-            tParent.previousElementSibling.style.display = "none";
+            let previousElement = tParent
+            previousElement.style.display = "none";
+            while (previousElement.nodeName != "H2") {
+                previousElement = previousElement.previousElementSibling;
+                previousElement.style.display = "none"
+            }
         } else {
-            tParent.style.display = "";
-            tParent.previousElementSibling.style.display = "";
+            let previousElement = tParent
+            previousElement.style.display = "";
+            while (previousElement.nodeName != "H2") {
+                previousElement = previousElement.previousElementSibling;
+                previousElement.style.display = ""
+            }
         }
     }
     // check if there is an element exists which displays the number of results
